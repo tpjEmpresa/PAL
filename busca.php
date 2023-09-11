@@ -20,9 +20,10 @@
     </style>
 </head>
 <body>
+
 <header class="sticky top-0 z-10">
   <nav class="flex justify-between p-2 px-2 sm:px-6 bg-zinc-800">
-    <a href="#1"><!--LINK-->
+    <a href="#1"><!--LINK PRA LOGO, N SEI PRA ONDE MANDA CPA A LADNING PAGE SL-->
         <div>
         <img src="/imgs/pal.png" alt="logo" class="" width="120"> 
         </div>
@@ -32,9 +33,13 @@
       <div class="m-auto ">
 
       <div class="flex gap-2">
+
+      
         <a href="#"><div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('imgs/bell.png')] bg-cover bg-center invert hover:opacity-75 ">
-        <!--FOTO NOTIFY-->
+        <!--FOTO NOTIFICACAO-->
         </div></a>
+
+        <!-- MENU DROP DOWN-->
         <div class="dropdown my-auto">
           <button class="font-mono hover:bg-zinc-700 p-1">UserName<i>👇</i></button><!--NOME USER-->
 
@@ -61,22 +66,26 @@
         </div>
 
       </div>
-
       </div>
-    
+
+    <!-- MANDA PRO PERFIL DA PESSOA LOGADA-->
       <a href="" class="m-auto">
         <div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('https://exploringbits.com/wp-content/uploads/2022/01/Manga-PFP-6.jpg?ezimgfmt=rs:300x300/rscb3/ng:webp/ngcb3')] bg-cover bg-center ">
             <!--FOTO USER-->
         </div>
-       </a>
+      </a>
     </div>
   </nav>
+
+  <!-- BGLH DE BUSCA -- TAVA NO FIGMA- AINDA VOU MUDAR-->
   <div class="flex justify-center border-y border-zinc-800  bg-white">
     <input type="text"  class="border border-zinc-400  text-zinc-500" placeholder="busca">
   </div>
 </header>
 
 <section class="flex sm:flex-row flex-col gap-8 p-4 text-zinc-100 bg-zinc-800">
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- FORM DE FILTROS -->
 
   <form action="" method="post">
     <h1 class="text-2xl">FILTROS</h1>
@@ -92,11 +101,15 @@
       </div>
 
       <input type="submit" value="FILTRAR" class="bg-zinc-100 border hover:bg-zinc-800 px-3 mx-3 sm:mx-0 h-fit text-zinc-800 hover:text-zinc-100 font-semibold cursor-pointer transition-all">
-  </form>
-    
+      </div>
+    </form>
 
-  </div>
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<!-- GRID PROS CARDS-->
+
   <div class=" w-full grid sm:grid-cols-4  gap-2 ">
+
+<!--ESSA DIV AI EMBAXIO É O CARD Q MOSTRA O NOME, FOTO E OS JOGOS QUE O CARA JOGA-->
 
     <div class="container border sm:w-fit w-full flex flex-col p-2 rounded-sm ">
       <div class="flex justify-between">
@@ -113,20 +126,8 @@
     </div>
 
     
-
-
-    
-    
-
-    
-
-    
-
-
-    
-
   </div>
 </main>
-
+<!-- TO PRA COLOCAR O RODA PÉ SEGURA AE -->
 </body>
 </html>
