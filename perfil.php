@@ -1,3 +1,30 @@
+<?php
+session_start();
+ob_start();
+include_once 'php/conexao.php';
+
+if(!isset($_SESSION['id_user'])){
+    $_SESSION = [];
+    $_SESSION['msg'] = '<script>alert("Erro: Necessário realizar o login para acessar a página!")</script>';
+    header("Location: index.php");
+    exit();
+}
+
+$query_usuario = "SELECT id_perfil, descricao FROM Perfil WHERE Id_user_fk = :id LIMIT 1";
+$result_usuario = $conn->prepare($query_usuario);
+$result_usuario->bindParam(':id', $_SESSION['id_user'], PDO::PARAM_STR);
+$result_usuario->execute();
+
+if (($result_usuario) AND ($result_usuario->rowCount() != 0)) {
+    $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
+} else {
+    $_SESSION['msg'] = '<script>alert("Erro: Usuário não encontrado!")</script>';
+    header("Location: index.php");
+    exit();
+}
+
+$query_jogo = "SELECT jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$row_usuario['id_perfil']." LIMIT 2";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +112,7 @@
     
 
 <main class="sm:m-16 ">
-    <div class="bg-zinc-100 w-full px-3 font-mono flex justify-between"><p class="font-mono">Perfil do <span class="font-semibold ">USERNAME</span></p><a href="editarPerfil.php" class="hover:text-black text-zinc-700 font-mono">Editar perfil</a></div>
+    <div class="bg-zinc-100 w-full px-3 font-mono flex justify-between"><p class="font-mono">Perfil do <span class="font-semibold "><?php echo $_SESSION['nickName']; ?></span></p><a href="editarPerfil.php" class="hover:text-black text-zinc-700 font-mono">Editar perfil</a></div>
     <div class="flex border sm:flex-row flex-col">
 
         <div class="sm:w-1/3 p-3 flex sm:flex-col gap-3 w-full ">
@@ -105,25 +132,29 @@
         <div class=" flex flex-1 flex-col justify-around p-3">
             <div class="text-zinc-300 h-1/3">
                 <h1 class="text-sm text-zinc-400">sobre mim</h1>
-                <p class="ml-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                <p class="ml-3"><?php echo $row_usuario['descricao']; ?></p>
             </div>
             <div class="flex-1">
                 <h1 class="text-sm text-zinc-400 mb-1">jogos jogados</h1>
                 <div class=" bg-zinc-800 min-h-2/3 flex  flex-wrap">
 
-
-                <div class="flex gap-3 px-6 m-3 bg-zinc-900 w-fit h-fit border-zinc-700 border rounded-sm">
+                <?php
+				foreach ($conn->query($query_jogo) as $row) {
+				?>
+					<div class="flex gap-3 px-6 m-3 bg-zinc-900 w-fit h-fit border-zinc-700 border rounded-sm">
                         <div class="text-center">
                             <h1 class="text-sm text-zinc-400">jogo</h1>
-                            <p class="font-semibold text-md text-zinc-300">cs:go</p>
-                        </div>
-                        <div class="text-center ">
+                            <p class="font-semibold text-md text-zinc-300"><?php print $row['jogo'];?></p>
+						</div>
+						<div class="text-center ">
                             <h1 class="text-sm text-zinc-400">rank</h1>
-                            <p class="font-semibold text-md text-zinc-300">prata</p>
-                        </div>
-                </div>
-                    
-                    
+                            <p class="font-semibold text-md text-zinc-300"><?php print $row['ranking'];?></p>
+						</div>
+					</div>
+				<?php
+					}
+				?>
+                
 
 
 

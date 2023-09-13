@@ -49,6 +49,13 @@
 </head>
 <body>
 
+<?php
+    if(isset($_SESSION["msg"])){
+        echo $_SESSION["msg"];
+        unset($_SESSION["msg"]);
+    }
+?>
+
 <header class="sticky top-0 z-10">
   <nav class="flex justify-between p-2 px-2 sm:px-6 bg-zinc-800">
     <a href="index.php"><!--LINK-->
