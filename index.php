@@ -15,6 +15,8 @@
       }
         body{
             height: 100vh;
+            --tw-bg-opacity: 1;
+            background-color: rgb(24 24 27 / var(--tw-bg-opacity));
         }
 
         @keyframes rotate {
@@ -180,7 +182,7 @@
   </div>
 </section>
 
-<div class="bg-zinc-800 h-20"></div>
+<div class="m-4 flex h-20 gap-10 border-b border-zinc-400 p-3"></div>
 
 <!--SOBRE-->
 <section class="flex sm:h-3/6 h-full sm:justify-between bg-zinc-900 flex-col sm:flex-row text-zinc-800 ">
@@ -192,34 +194,26 @@
           <a href="saibamais.php" class="p-2 ml-3 text-zinc-100 border rounded-sm hover:bg-zinc-100 hover:text-zinc-800 transition-colors">SAIBA MAIS</a>
         </div>
 
-        <div class="bg-zinc-900 sm:w-2/4 h-full mx-2 bg-[url('pics/grupo.png')] bg-contain bg-center  bg-no-repeat">
+        <div class="bg-zinc-900 sm:w-2/4 h-full  mx-2  bg-[url('pics/grupo.png')] bg-contain bg-center  bg-no-repeat">
 
         </div>
 </section>
 
-<div class="bg-zinc-800 h-20"></div>
+
 
 <!--RODA PE-->
-<footer class="h-40 bg-zinc-900 text-zinc-400 flex flex-col">
-  <div class="flex justify-evenly p-2  mx-4 my-auto gap-4">
-    <div class="flex sm:gap-20 gap-4">
-      <a  class=" hover:text-zinc-100 transition-colors"
-      href="">SUPORTE</a><!--LINK-->
-      <p>*</p>
-      <a class=" hover:text-zinc-100 transition-colors"
-      href="" >SAIBA MAIS</a><!--LINK-->
-      <p>*</p>
-      <a  class=" hover:text-zinc-100 transition-colors"
-      href="">CONTATO</a><!--LINK-->
-    </div>
-    <div>
-      <a class=" hover:text-zinc-100 transition-colors"
-      href="cadastro.php">CRIAR CONTA / ENTRAR</a><!--LINK-->
-    </div>
+<footer class="m-3 flex h-20 gap-10 border-t border-zinc-400 p-3 sm:mx-16">
+  <div class="flex gap-2 w-1/3">
+    <a href="" class="my-auto text-sm text-zinc-400">
+      <span> ©2023 TPJ, Inc.</span>
+    </a>
   </div>
-
-  <div class="text-center p-2 text-sm my-auto">
-    TODOS OS DIREITOS RESERVADOS A TPJEMPRESA @2023
+  <div class="my-auto w-full ">
+    <ul class="flex  text-zinc-400 justify-evenly text-sm">
+      <li class="underline hover:text-white"><a href="suporte.php">SUPORTE</a></li>
+      <li class="underline hover:text-white"><a href="saibaMais.php">SAIBA MAIS</a></li>
+      <li class="underline hover:text-white"><a href="contato.php">CONTATO</a></li>
+    </ul>
   </div>
 </footer>
 </body>

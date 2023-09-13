@@ -84,7 +84,7 @@
   </div>
 </header>
 
-<section class="flex sm:flex-row flex-col gap-8 p-4 text-zinc-100 bg-zinc-900">
+<main class="flex sm:flex-row flex-col gap-8 p-4 text-zinc-100 bg-zinc-900">
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 <!-- FORM DE FILTROS -->
 
@@ -130,5 +130,19 @@
   </div>
 </main>
 <!-- TO PRA COLOCAR O RODA PÉ SEGURA AE -->
+<footer class="m-3 flex h-20 gap-10 border-t border-zinc-400 p-3 sm:mx-16">
+    <div class="flex gap-2 w-1/3">
+      <a href="" class="my-auto text-sm text-zinc-400">
+        <span> ©2023 TPJ, Inc.</span>
+      </a>
+    </div>
+    <div class="my-auto w-full ">
+      <ul class="flex  text-zinc-400 justify-evenly text-sm">
+        <li class="underline hover:text-white"><a href="suporte.php">SUPORTE</a></li>
+        <li class="underline hover:text-white"><a href="saibaMais.php">SAIBA MAIS</a></li>
+        <li class="underline hover:text-white"><a href="contato.php">CONTATO</a></li>
+      </ul>
+    </div>
+</footer>
 </body>
 </html>

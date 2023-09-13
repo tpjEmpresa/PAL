@@ -35,7 +35,7 @@
       <div class="flex gap-2">
 
       
-        <a href="notificacao.php"><div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('pics/bell.png')] bg-cover bg-center invert hover:opacity-75 ">
+        <a href="#"><div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('pics/bell.png')] bg-cover bg-center invert hover:opacity-75 ">
         <!--FOTO NOTIFICACAO-->
         </div></a>
 
@@ -82,60 +82,29 @@
     <a  class="border border-zinc-400 rounded-sm m-1 p-1 text-zinc-500 hover:text-black hover:border-black" href="busca.php">ir para pagina de busca</a>
   </div>
 </header>
-    
-
-<main class="sm:m-16 ">
-    <div class="bg-zinc-100 w-full px-3 font-mono flex justify-between"><p class="font-mono">Perfil do <span class="font-semibold ">USERNAME</span></p><a href="editarPerfil.php" class="hover:text-black text-zinc-700 font-mono">Editar perfil</a></div>
-    <div class="flex border sm:flex-row flex-col">
-
-        <div class="sm:w-1/3 p-3 flex sm:flex-col gap-3 w-full ">
-            <div class="w-80 h-80 m-auto bg-[url('pics/pfp.jpg')] bg-cover bg-center">
-                foto
-            </div>
-            <div>
-                <h1 class="text-sm text-zinc-400 text-center">minhas redes socias</h1>
-                <div class="flex justify-center sm:flex-row flex-col ">
-                    <div><a href="#"><img src="pics/steam.png" alt="" class="w-12 mx-auto " /></a></div>
-                    <div><a href="#"><img src="pics/twitter.png" alt="" class="w-12 mx-auto opacity-90" /></a></div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class=" flex flex-1 flex-col justify-around p-3">
-            <div class="text-zinc-300 h-1/3">
-                <h1 class="text-sm text-zinc-400">sobre mim</h1>
-                <p class="ml-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-            </div>
-            <div class="flex-1">
-                <h1 class="text-sm text-zinc-400 mb-1">jogos jogados</h1>
-                <div class=" bg-zinc-800 min-h-2/3 flex  flex-wrap">
+<section class="bg-white dark:bg-zinc-900">
+  <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-zinc-900 dark:text-white">Entre em Contato</h2>
+      <p class="mb-8 lg:mb-16 font-light text-center text-zinc-500 dark:text-zinc-400 sm:text-xl">Estamos sempre prontos para ajudar. Se você tiver alguma dúvida, sugestão ou precisar de suporte adicional, entre em contato conosco. Teremos o prazer de ajudá-lo a qualquer momento.</p>
+      <form action="#" class="space-y-8">
+          <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Seu email</label>
+              <input type="email" id="email" class="shadow-sm bg-zinc-50 border border-zinc-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="name@gmail.com" required>
+          </div>
+          <div>
+              <label for="subject" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Motivo</label>
+              <input type="text" id="subject" class="block p-3 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="Nos ajude a te ajudar" required>
+          </div>
+          <div class="sm:col-span-2">
+              <label for="message" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-400">Messagem</label>
+              <textarea id="message" rows="6" class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Escreva o porque..."></textarea>
+          </div>
+          <button type="submit" class="py-3 px-5 text-sm font-medium text-center bg-red-700 text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar</button>
+      </form>
+  </div>
+</section> 
 
 
-                <div class="flex gap-3 px-6 m-3 bg-zinc-900 w-fit h-fit border-zinc-700 border rounded-sm">
-                        <div class="text-center">
-                            <h1 class="text-sm text-zinc-400">jogo</h1>
-                            <p class="font-semibold text-md text-zinc-300">cs:go</p>
-                        </div>
-                        <div class="text-center ">
-                            <h1 class="text-sm text-zinc-400">rank</h1>
-                            <p class="font-semibold text-md text-zinc-300">prata</p>
-                        </div>
-                </div>
-                    
-                    
-
-
-
-                    
-
-        
-
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
 <footer class="m-3 flex h-20 gap-10 border-t border-zinc-400 p-3 sm:mx-16">
     <div class="flex gap-2 w-1/3">
       <a href="" class="my-auto text-sm text-zinc-400">
@@ -150,6 +119,5 @@
       </ul>
     </div>
 </footer>
-
 </body>
 </html>

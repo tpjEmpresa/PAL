@@ -93,11 +93,11 @@
 <main class="flex h-screen bg-zinc-900 m-10">
   <div class="m-4 flex flex-1 rounded-md  p-4 flex-col gap-2">
     <form name="edit-usuario" method="POST" action="" class="mx-auto flex flex-col gap-2 sm:w-1/3 w-full">
-      <label for="" class="text-md text-zinc-400">mude sobre você</label>
+      <label for="" class="text-md text-zinc-200">Mude o sobre você</label>
       <textarea name="descricao" placeholder="descricao" maxlength="300" minlength="10" class="rounded-sm mb-3 p-1 px-2 text-lg resize-none h-36" required><?php if (isset($dados['descricao'])) {echo $dados['descricao'];} else{echo $dados['descricaoV'];}
       ?></textarea>
 
-      <label class="text-md text-zinc-400">Adicione os jogos que voce joga</label>
+      <label class="text-md text-zinc-200">Adicione os jogos que voce joga</label>
       <label for=""class="text-sm text-zinc-400">jogo:</label>
         <select name="jogo" class="rounded-sm p-1 px-2 text-lg" onchange="qualjg()" id="combox" required>
             <option value="none"></option>
@@ -153,7 +153,7 @@
 
       <div class="mx-auto flex flex-col gap-4  m-3">
 
-      <label class="text-md text-zinc-400 text-center">remova os jogos </label>
+      <label class="text-md text-zinc-200 text-center">Remova os jogos </label>
       <div class="flex gap-6 px-10 p-2 justify-between text-lg font-medium rounded-md border border-red-500  text-zinc-200" >
           <div class="text-center w-full">
             
