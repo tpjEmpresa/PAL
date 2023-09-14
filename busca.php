@@ -1,3 +1,18 @@
+<?php
+session_start();
+ob_start();
+include_once 'php/conexao.php';
+
+if(!isset($_SESSION['id_user'])){
+    $_SESSION = [];
+    $_SESSION['msg'] = '<script>alert("Erro: Necessário realizar o login para acessar a página!")</script>';
+    header("Location: index.php");
+    exit();
+}
+
+$query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (id_user = id_user_fk) WHERE id_user != ".$_SESSION['id_user'].";";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,11 +108,11 @@
     <h2>Jogos</h2>
     <div class="flex sm:gap-0 gap-2 sm:flex-col ">
       <div class="flex gap-2 text-lg ">    
-        <input type="checkbox" name="" id="" class="w-5 h-5 my-auto cursor-pointer">
+        <input type="checkbox" name="cs" id="" class="w-5 h-5 my-auto cursor-pointer">
         <label for="">CS:GO</label>
       </div>
       <div class="flex gap-2 text-lg sm:mb-3 ">    
-        <input type="checkbox" name="" id="" class="w-5 h-5 my-auto cursor-pointer">
+        <input type="checkbox" name="va" id="" class="w-5 h-5 my-auto cursor-pointer">
         <label for="">VALORANT</label>
       </div>
 
@@ -111,20 +126,53 @@
   <div class=" w-full grid sm:grid-cols-4  gap-2 ">
 
 <!--ESSA DIV AI EMBAXIO É O CARD Q MOSTRA O NOME, FOTO E OS JOGOS QUE O CARA JOGA-->
+<?php
+    // Check if the form was submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $csChecked = isset($_POST['cs']) ? $_POST['cs'] : false;
+        $vaChecked = isset($_POST['va']) ? $_POST['va'] : false;
 
-    <div class="container border sm:w-fit w-full flex flex-col p-2 rounded-sm ">
+        // Query based on the checked checkboxes
+        $query_usuario = "SELECT * FROM your_table WHERE 1=1";
+
+        if ($csChecked) {
+            $query_usuario .= " AND game = 'CS:GO'";
+        }
+
+        if ($vaChecked) {
+            $query_usuario .= " AND game = 'VALORANT'";
+        }
+
+        // Execute the filtered query and display the results
+        foreach ($conn->query($query_usuario) as $row) {
+            // Display the filtered results here
+        
+    
+?>
+
+    <div id="hid" class="container border sm:w-fit w-full flex flex-col p-2 rounded-sm ">
       <div class="flex justify-between">
-        <a href="#"><h1 class="text-xl font-medium px-3 py-1 hover:text-white transition-colors">nome user</h1></a>
+        <a href="#"><h1 class="text-xl font-medium px-3 py-1 hover:text-white transition-colors"><?php print $row['nickName'];?></h1></a>
         <a class="text-sm text-red-800 hover:text-red-600 transition-colors" href="">report</a>
       </div>
       <img src="https://exploringbits.com/wp-content/uploads/2022/01/Manga-PFP-6.jpg?ezimgfmt=rs:300x300/rscb3/ng:webp/ngcb3" alt="" height="50" width="50" class="mx-3 my-1 "/>
       <p class="text-sm text-zinc-500 px-3 ">tags:</p>
       <div class="px-6 pt-4 pb-2 flex flex-row flex-wrap">
-            <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors">#CSGO</span>
-            <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm font-semibold text-zinc-700 mr-2 mb-2  hover:text-zinc-600 hover:bg-zinc-300 transition-colors">#VALORANT</span>
+          <?php
+            $query_jogo = "SELECT jogo FROM Jogo WHERE Id_perfil_fk = ".$row['id_perfil']."";
+            foreach ($conn->query($query_jogo) as $row) {
+          ?>
+                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['jogo'];?></span>
+          <?php
+            }
+          ?>
 
       </div>
     </div>
+<?php
+
+    } }
+?>
 
     
   </div>

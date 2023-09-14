@@ -3,14 +3,6 @@ session_start();
 ob_start();
 include_once 'conexao.php';
 
-$query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_SESSION['id_perfil']." LIMIT 2";
-$result_jogo = $conn->prepare($query_jogo);
-$result_jogo->execute();
-
-if (($result_jogo) AND ($result_jogo->rowCount() != 0)) {
-  $row_jogo = $result_jogo->fetch(PDO::FETCH_ASSOC);
-}
-
 if(isset($_SESSION["dados"])){
     $dados = $_SESSION["dados"];
     unset($_SESSION["dados"]);
@@ -39,6 +31,14 @@ if (!empty($dados['EditPerfil'])) {
         $edit_usuario = $conn->prepare($query_up_usuario);
         $edit_usuario->bindParam(':descricao', $dados['descricao'], PDO::PARAM_STR);
         $edit_usuario->bindParam(':id', $_SESSION['id_user'], PDO::PARAM_INT);
+
+		$query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_SESSION['id_perfil']." LIMIT 2";
+		$result_jogo = $conn->prepare($query_jogo);
+		$result_jogo->execute();
+
+		if (($result_jogo) AND ($result_jogo->rowCount() != 0)) {
+		$row_jogo = $result_jogo->fetch(PDO::FETCH_ASSOC);
+		}
 
         if ($edit_usuario->execute()){
             if (isset($dados['jogo'])){

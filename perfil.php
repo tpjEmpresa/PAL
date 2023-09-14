@@ -68,7 +68,7 @@ $query_jogo = "SELECT jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$row_usuari
 
         <!-- MENU DROP DOWN-->
         <div class="dropdown my-auto">
-          <button class="font-mono hover:bg-zinc-700 p-1">UserName<i>▼</i></button><!--NOME USER-->
+          <button class="font-mono hover:bg-zinc-700 p-1"><?php echo $_SESSION['nickName']; ?><i>▼</i></button><!--NOME USER-->
 
           <div class="absolute bg-zinc-800  rounded-md border dropdown-menu opacity-0 invisible right-10 ">
             <ul class="text-sm font-medium">

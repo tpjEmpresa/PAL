@@ -1,7 +1,7 @@
 <?php
-session_start();
 ob_start();
 include_once 'php/conexao.php';
+include_once 'php/cod_editarPerfil.php';
 
 if(!isset($_SESSION['id_user'])){
     $_SESSION = [];
@@ -14,15 +14,8 @@ $query_usuario = "SELECT id_perfil, descricao FROM Perfil WHERE Id_user_fk = :id
 $result_usuario = $conn->prepare($query_usuario);
 $result_usuario->bindParam(':id', $_SESSION['id_user'], PDO::PARAM_STR);
 $result_usuario->execute();
-
-if (($result_usuario) AND ($result_usuario->rowCount() != 0)) {
-    $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
-	$_SESSION['id_perfil'] = $row_usuario['id_perfil'];
-} else {
-    $_SESSION['msg'] = '<script>alert("Erro: Usuário não encontrado!")</script>';
-    header("Location: index.php");
-    exit();
-}
+$row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
+$_SESSION['id_perfil'] = $row_usuario['id_perfil'];
 
 $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_SESSION['id_perfil']." LIMIT 2";
 ?>
@@ -206,13 +199,10 @@ $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_
             
             <p><span class="text-sm text-zinc-400">jogo: </span><?php print $row['jogo'];?></p>
             <p><span class="text-sm text-zinc-400">rank: </span><?php print $row['ranking'];?></p>
-            <p><span class="text-sm text-zinc-400">rank: </span><?php print $row['id_jogo'];?></p>
           </div>
           <?php
           echo '<td><button type="submit" name="removejogo" value="'.$row['id_jogo'].'" class="text-red-700  hover:text-red-500 hover:bg-zinc-950  px-2 rounded-md">Delete</button></td>';
           ?>
-          <!-- <input type="submit" value="'.$row['id_jogo'].'" name="removejogo" class="text-red-700  hover:text-red-500 hover:bg-zinc-950  px-2 rounded-md"> -->
-          <!-- Remover</button> -->
         </div> 
       <?php
         }
