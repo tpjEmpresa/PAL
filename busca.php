@@ -127,27 +127,7 @@ $query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (
 
 <!--ESSA DIV AI EMBAXIO É O CARD Q MOSTRA O NOME, FOTO E OS JOGOS QUE O CARA JOGA-->
 <?php
-    // Check if the form was submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $csChecked = isset($_POST['cs']) ? $_POST['cs'] : false;
-        $vaChecked = isset($_POST['va']) ? $_POST['va'] : false;
-
-        // Query based on the checked checkboxes
-        $query_usuario = "SELECT * FROM your_table WHERE 1=1";
-
-        if ($csChecked) {
-            $query_usuario .= " AND game = 'CS:GO'";
-        }
-
-        if ($vaChecked) {
-            $query_usuario .= " AND game = 'VALORANT'";
-        }
-
-        // Execute the filtered query and display the results
-        foreach ($conn->query($query_usuario) as $row) {
-            // Display the filtered results here
-        
-    
+    foreach ($conn->query($query_usuario) as $row) {
 ?>
 
     <div id="hid" class="container border sm:w-fit w-full flex flex-col p-2 rounded-sm ">
@@ -159,7 +139,7 @@ $query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (
       <p class="text-sm text-zinc-500 px-3 ">tags:</p>
       <div class="px-6 pt-4 pb-2 flex flex-row flex-wrap">
           <?php
-            $query_jogo = "SELECT jogo FROM Jogo WHERE Id_perfil_fk = ".$row['id_perfil']."";
+            $query_jogo = "SELECT jogo FROM Jogo WHERE Id_perfil_fk = ".$row['id_perfil']." LIMIT 2";
             foreach ($conn->query($query_jogo) as $row) {
           ?>
                 <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['jogo'];?></span>
@@ -171,7 +151,7 @@ $query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (
     </div>
 <?php
 
-    } }
+    }
 ?>
 
     
