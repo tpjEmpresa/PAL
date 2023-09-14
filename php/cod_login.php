@@ -21,10 +21,10 @@ if (!empty($dados['SendLogin'])) {
         if($dados['senha'] == $row_usuario['senha']){
             $_SESSION['id_user'] = $row_usuario['id_user'];
             $_SESSION['nickName'] = $row_usuario['nickName'];
-            header("Location: http://localhost/PIT/Sprint3/PAL/perfil.php");
+            header("Location: http://localhost:3000/perfil.php");
         }else{
 			$_SESSION["msg"] = '<script>alert("Erro: Usuário ou senha inválida!")</script>';
-        	header("Location: http://localhost/PIT/Sprint3/PAL/login.php");
+        	header("Location: http://localhost:3000/perfil.php");
         }
         }else{
 			$_SESSION["msg"] = '<script>alert("Erro: Usuário ou senha inválida!")</script>';

@@ -23,7 +23,7 @@ include_once 'php/cod_cadastro.php';
         }
     </style>
 </head>
-<body>
+<body class="bg-[url('pics/bg0.png')] m-auto bg-contain bg-repeat   ">
 <?php
 
     $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -39,7 +39,7 @@ include_once 'php/cod_cadastro.php';
     }
 ?>
 
-<div class="flex h-screen bg-[url('pics/bg0.png')] m-auto bg-contain bg-repeat">
+<div class="flex h-screen ">
   <form name="cad-usuario" method="POST" action="" class=" flex flex-col gap-4 bg-zinc-900 h-fit p-4 md:p-14 m-auto rounded-md md:w-1/3">
     <h1 class="text-xl text-zinc-200 text-center">Cadastro</h1>
     <div>

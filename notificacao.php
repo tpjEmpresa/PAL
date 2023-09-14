@@ -3,21 +3,12 @@ session_start();
 ob_start();
 include_once 'php/conexao.php';
 
-if(!isset($_SESSION['id_user'])){
-    $_SESSION = [];
-    $_SESSION['msg'] = '<script>alert("Erro: Necessário realizar o login para acessar a página!")</script>';
-    header("Location: index.php");
-    exit();
-}
-
-$query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (id_user = id_user_fk) WHERE id_user != ".$_SESSION['id_user'].";";
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="pics/ico.png" type="image/x-icon">
     <title>PAL</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -107,64 +98,11 @@ $query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (
   </div>
 </header>
 
-<main class="flex sm:flex-row flex-col gap-8 p-4 text-zinc-100 bg-zinc-900">
-<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
-<!-- FORM DE FILTROS -->
-
-  <form action="" method="post">
-    <h1 class="text-2xl">FILTROS</h1>
-    <h2>Jogos</h2>
-    <div class="flex sm:gap-0 gap-2 sm:flex-col ">
-      <div class="flex gap-2 text-lg ">    
-        <input type="checkbox" name="cs" id="" class="w-5 h-5 my-auto cursor-pointer">
-        <label for="">CS:GO</label>
-      </div>
-      <div class="flex gap-2 text-lg sm:mb-3 ">    
-        <input type="checkbox" name="va" id="" class="w-5 h-5 my-auto cursor-pointer">
-        <label for="">VALORANT</label>
-      </div>
-
-      <input type="submit" value="FILTRAR" class="bg-zinc-100 border hover:bg-zinc-800 px-3 mx-3 sm:mx-0 h-fit text-zinc-800 hover:text-zinc-100 font-semibold cursor-pointer transition-all">
-      </div>
-    </form>
-
-<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
-<!-- GRID PROS CARDS-->
-
-  <div class=" w-full grid md:grid-cols-4  gap-2 ">
-
-<!--ESSA DIV AI EMBAXIO É O CARD Q MOSTRA O NOME, FOTO E OS JOGOS QUE O CARA JOGA-->
-<?php
-    foreach ($conn->query($query_usuario) as $row) {
-?>
-
-    <div id="hid" class="container border w-full flex flex-col p-2 rounded-sm ">
-      <div class="flex justify-between">
-        <a href="#"><h1 class="text-xl font-medium px-3 py-1 hover:text-white transition-colors"><?php print $row['nickName'];?></h1></a>
-        <a class="text-sm text-red-800 hover:text-red-600 transition-colors" href="report.php">report</a>
-      </div>
-      <img src="pics/pfp.jpg" alt="" height="50" width="50" class="mx-3 my-1 "/>
-      <p class="text-sm text-zinc-500 px-3 ">tags:</p>
-      <div class="px-6 pt-4 pb-2 flex flex-row flex-wrap">
-          <?php
-            $query_jogo = "SELECT jogo FROM Jogo WHERE Id_perfil_fk = ".$row['id_perfil']." LIMIT 2";
-            foreach ($conn->query($query_jogo) as $row) {
-          ?>
-                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['jogo'];?></span>
-          <?php
-            }
-          ?>
-
-      </div>
-    </div>
-<?php
-
-    }
-?>
-    
-  </div>
+<main class=" flex h-1/2">
+    <h1 class="text-zinc-600 text-lg m-auto">Você tem 00 Notificações</h1>
 </main>
-<!-- TO PRA COLOCAR O RODA PÉ SEGURA AE -->
+
+
 <footer class="m-3 flex h-20 gap-10 border-t border-zinc-400 p-3 sm:mx-16">
     <div class="flex gap-2 w-1/3">
       <a href="" class="my-auto text-sm text-zinc-400">

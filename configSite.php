@@ -77,25 +77,33 @@ if (($result_usuario) AND ($result_usuario->rowCount() != 0)) {
       <div class="flex gap-2">
 
       
-        <a href="#"><div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('pics/bell.png')] bg-cover bg-center invert hover:opacity-75 ">
+        <a href="notificacao.php"><div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('pics/bell.png')] bg-cover bg-center invert hover:opacity-75 ">
         <!--FOTO NOTIFICACAO-->
         </div></a>
 
         <!-- MENU DROP DOWN-->
         <div class="dropdown my-auto">
-          <button class="font-mono hover:bg-zinc-700 p-1"><?php echo $_SESSION['nickName'];?><i>▼</i></button><!--NOME USER-->
+          <button class="font-mono hover:bg-zinc-700 p-1">
+            <?php echo $_SESSION['nickName']; ?><i>▼</i></button><!--NOME USER-->
 
           <div class="absolute bg-zinc-800  rounded-md border dropdown-menu opacity-0 invisible right-10 ">
             <ul class="text-sm font-medium">
-              <li class="hover:bg-zinc-100 hover:text-black p-2 transition-colors">
-                <a href="editarPerfil.php">Editar Perfil</a><!--LINK editar perfil-->
-              </li>
-              <li class="hover:bg-zinc-100 hover:text-black p-2  transition-colors">
-                <a href="configSite.php">Configuracão do site</a><!--LINK config site-->
-              </li>
-              <li  class="hover:bg-zinc-100 hover:text-black p-2 text-sm  transition-colors">
-                <a href="">Sair</a><!--LINK-->
-              </li>
+
+              <a href="editarPerfil.php">
+                <li class="hover:bg-zinc-100 hover:text-black p-2 transition-colors">
+                Editar Perfil<!--LINK editar perfil-->
+                </li>
+              </a>
+              <a href="configSite.php">
+                <li class="hover:bg-zinc-100 hover:text-black p-2  transition-colors">
+                  Configuracão do site<!--LINK config site-->
+                </li>
+              </a>
+              <a href="php/logout.php">
+                <li  class="hover:bg-zinc-100 hover:text-black p-2 text-sm  transition-colors">
+                Sair<!--LINK-->
+                </li>
+              </a>
             </ul>
           </div>
           <style>
@@ -111,7 +119,7 @@ if (($result_usuario) AND ($result_usuario->rowCount() != 0)) {
       </div>
 
     <!-- MANDA PRO PERFIL DA PESSOA LOGADA-->
-      <a href="" class="m-auto">
+      <a href="perfil.php" class="m-auto">
         <div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('pics/pfp.jpg')] bg-cover bg-center ">
             <!--FOTO USER-->
         </div>
@@ -122,7 +130,7 @@ if (($result_usuario) AND ($result_usuario->rowCount() != 0)) {
   <!-- BGLH DE BUSCA -- TAVA NO FIGMA- AINDA VOU MUDAR-->
   <div class="flex justify-center border-y border-zinc-800  bg-white">
     <a  class="border border-zinc-400 rounded-sm m-1 p-1 text-zinc-500 hover:text-black hover:border-black" 
-    href="perfil.php">ir para meu perfil</a>
+    href="perfil.php">ir para perfil</a>
   </div>
 </header>
 
