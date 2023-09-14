@@ -15,7 +15,6 @@ $result_usuario = $conn->prepare($query_usuario);
 $result_usuario->bindParam(':id', $_SESSION['id_user'], PDO::PARAM_STR);
 $result_usuario->execute();
 
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 if (($result_usuario) AND ($result_usuario->rowCount() != 0)) {
     $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
 	$_SESSION['id_perfil'] = $row_usuario['id_perfil'];
@@ -26,13 +25,6 @@ if (($result_usuario) AND ($result_usuario->rowCount() != 0)) {
 }
 
 $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_SESSION['id_perfil']." LIMIT 2";
-$result_jogo = $conn->prepare($query_jogo);
-$result_jogo->execute();
-
-if (($result_jogo) AND ($result_jogo->rowCount() != 0)) {
-  $row_jogo = $result_jogo->fetch(PDO::FETCH_ASSOC);
-  $_SESSION['id_jogo'] = $row_jogo['id_jogo'];
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,6 +56,10 @@ if (($result_jogo) AND ($result_jogo->rowCount() != 0)) {
         $_SESSION["dados"] = $dados;
         header("Location: php/cod_editarPerfil.php");
     }
+    if (!empty($dados['removejogo'])) {
+      $_SESSION["dados"] = $dados;
+      header("Location: php/cod_editarPerfil.php");
+  }
 ?>
 <?php
     if(isset($_SESSION["msg"])){
@@ -210,8 +206,13 @@ if (($result_jogo) AND ($result_jogo->rowCount() != 0)) {
             
             <p><span class="text-sm text-zinc-400">jogo: </span><?php print $row['jogo'];?></p>
             <p><span class="text-sm text-zinc-400">rank: </span><?php print $row['ranking'];?></p>
+            <p><span class="text-sm text-zinc-400">rank: </span><?php print $row['id_jogo'];?></p>
           </div>
-          <input type="submit" value="remover" name="removejogo" class="text-red-700  hover:text-red-500 hover:bg-zinc-950  px-2 rounded-md">
+          <?php
+          echo '<td><button type="submit" name="removejogo" value="'.$row['id_jogo'].'" class="text-red-700  hover:text-red-500 hover:bg-zinc-950  px-2 rounded-md">Delete</button></td>';
+          ?>
+          <!-- <input type="submit" value="'.$row['id_jogo'].'" name="removejogo" class="text-red-700  hover:text-red-500 hover:bg-zinc-950  px-2 rounded-md"> -->
+          <!-- Remover</button> -->
         </div> 
       <?php
         }
@@ -222,20 +223,5 @@ if (($result_jogo) AND ($result_jogo->rowCount() != 0)) {
   </div>
 </main>
 
-
-<footer class="bg-zinc-900 px-6 font-medium text-zinc-400">
-  <div class="flex justify-between border-b border-zinc-200">
-    <div class="flex gap-4">
-      <a href="" class="hover:text-white">Saiba-mais</a>
-      <a href="" class="hover:text-white">Suporte</a>
-      <a href="" class="hover:text-white">Contato</a>
-    </div>
-    <!-- <p>:/</p> -->
-    <a href="" class="hover:text-white">Criar Conta / Entrar</a>
-  </div>
-</footer>
-<footer class="flex justify-center bg-zinc-900 text-sm text-white">
-  <p>&copy 2023 todos os direitos reservados. PAL inc.</p>
-</footer>
 </body>
 </html>
