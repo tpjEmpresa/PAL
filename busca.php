@@ -10,7 +10,8 @@ if(!isset($_SESSION['id_user'])){
     exit();
 }
 
-$query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (id_user = id_user_fk) WHERE id_user != ".$_SESSION['id_user'].";";
+//$query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (id_user = id_user_fk) WHERE id_user != ".$_SESSION['id_user'].";";
+
 
 ?>
 <!DOCTYPE html>
@@ -109,19 +110,127 @@ $query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (
 
 <main class="flex sm:flex-row flex-col gap-8 p-4 text-zinc-100 bg-zinc-900">
 <!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+
+
+<?php
+$query_usuario = "SELECT id_user, nickName, id_perfil, MAX(CASE WHEN jogo = 'cs:go' THEN jogo END) AS csgo, MAX(CASE WHEN jogo = 'valorant' THEN jogo END) AS valorant FROM user JOIN perfil ON (id_user = id_user_fk) LEFT JOIN jogo ON (id_perfil = id_perfil_fk) GROUP BY id_user, nickName, id_perfil;";
+    // Check if the form was submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $csChecked = isset($_POST['cs']) ? $_POST['cs'] : false;
+        $vaChecked = isset($_POST['va']) ? $_POST['va'] : false;
+        $reChecked = isset($_POST['re']) ? $_POST['re'] : false;
+        
+        if($reChecked){
+          $query_usuario = "SELECT id_user, nickName, id_perfil, MAX(CASE WHEN jogo = 'cs:go' THEN jogo END) AS csgo, MAX(CASE WHEN jogo = 'valorant' THEN jogo END) AS valorant FROM user JOIN perfil ON (id_user = id_user_fk) LEFT JOIN jogo ON (id_perfil = id_perfil_fk) GROUP BY id_user, nickName, id_perfil;";
+
+        }
+
+        if ($csChecked) {
+          $query_usuario = "SELECT 
+          id_user, 
+          nickName, 
+          id_perfil,
+          csgo 
+      FROM 
+          (SELECT 
+              id_user, 
+              nickName, 
+              id_perfil,
+              MAX(CASE WHEN jogo = 'cs:go' THEN jogo END) AS csgo,
+              MAX(CASE WHEN jogo = 'valorant' THEN jogo END) AS valorant
+          FROM 
+              user
+          JOIN 
+              perfil ON (id_user = id_user_fk)
+          LEFT JOIN 
+              jogo ON (id_perfil = id_perfil_fk)
+          GROUP BY 
+              id_user, 
+              nickName, 
+              id_perfil) AS subquery
+      WHERE 
+          csgo IS NOT NULL
+          AND valorant IS NULL;";
+ 
+          
+        }
+
+        if ($vaChecked) {
+          $query_usuario = "SELECT 
+          id_user, 
+          nickName, 
+          id_perfil,
+          valorant
+      FROM 
+          (SELECT 
+              id_user, 
+              nickName, 
+              id_perfil,
+              MAX(CASE WHEN jogo = 'cs:go' THEN jogo END) AS csgo,
+              MAX(CASE WHEN jogo = 'valorant' THEN jogo END) AS valorant
+          FROM 
+              user
+          JOIN 
+              perfil ON (id_user = id_user_fk)
+          LEFT JOIN 
+              jogo ON (id_perfil = id_perfil_fk)
+          GROUP BY 
+              id_user, 
+              nickName, 
+              id_perfil) AS subquery
+      WHERE 
+          csgo IS NULL
+          AND valorant IS NOT NULL;";
+        }
+
+        if($csChecked && $vaChecked ){
+          $query_usuario = "SELECT 
+          id_user, 
+          nickName, 
+          id_perfil,
+          csgo,
+          valorant
+      FROM 
+          (SELECT 
+              id_user, 
+              nickName, 
+              id_perfil,
+              MAX(CASE WHEN jogo = 'cs:go' THEN jogo END) AS csgo,
+              MAX(CASE WHEN jogo = 'valorant' THEN jogo END) AS valorant
+          FROM 
+              user
+          JOIN 
+              perfil ON (id_user = id_user_fk)
+          LEFT JOIN 
+              jogo ON (id_perfil = id_perfil_fk)
+          GROUP BY 
+              id_user, 
+              nickName, 
+              id_perfil) AS subquery
+      WHERE 
+          csgo IS NOT NULL
+          AND valorant IS NOT NULL;";
+        }
+
+    }
+?>
 <!-- FORM DE FILTROS -->
 
-  <form action="" method="post">
+  <form action="" method="post" class="sm:w-1/4">
     <h1 class="text-2xl">FILTROS</h1>
     <h2>Jogos</h2>
-    <div class="flex sm:gap-0 gap-2 sm:flex-col ">
+    <div class="flex sm:gap-0 gap-2 sm:flex-col flex-wrap">
       <div class="flex gap-2 text-lg ">    
         <input type="checkbox" name="cs" id="" class="w-5 h-5 my-auto cursor-pointer">
         <label for="">CS:GO</label>
       </div>
-      <div class="flex gap-2 text-lg sm:mb-3 ">    
+      <div class="flex gap-2 text-lg">    
         <input type="checkbox" name="va" id="" class="w-5 h-5 my-auto cursor-pointer">
         <label for="">VALORANT</label>
+      </div>
+      <div class="flex gap-2 text-lg sm:mb-3 ">    
+        <input type="checkbox" name="re" id="" class="w-5 h-5 my-auto cursor-pointer">
+        <label for="">remover filtros</label>
       </div>
 
       <input type="submit" value="FILTRAR" class="bg-zinc-100 border hover:bg-zinc-800 px-3 mx-3 sm:mx-0 h-fit text-zinc-800 hover:text-zinc-100 font-semibold cursor-pointer transition-all">
@@ -137,7 +246,6 @@ $query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (
 <?php
     foreach ($conn->query($query_usuario) as $row) {
 ?>
-
     <div id="hid" class="container border w-full flex flex-col p-2 rounded-sm ">
       <div class="flex justify-between">
         <a href="#"><h1 class="text-xl font-medium px-3 py-1 hover:text-white transition-colors"><?php print $row['nickName'];?></h1></a>
@@ -145,16 +253,9 @@ $query_usuario = "SELECT id_user, nickName, id_perfil FROM user join perfil on (
       </div>
       <img src="pics/pfp.jpg" alt="" height="50" width="50" class="mx-3 my-1 "/>
       <p class="text-sm text-zinc-500 px-3 ">tags:</p>
-      <div class="px-6 pt-4 pb-2 flex flex-row flex-wrap">
-          <?php
-            $query_jogo = "SELECT jogo FROM Jogo WHERE Id_perfil_fk = ".$row['id_perfil']." LIMIT 2";
-            foreach ($conn->query($query_jogo) as $row) {
-          ?>
-                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['jogo'];?></span>
-          <?php
-            }
-          ?>
-
+      <div class="px-6 pt-4 pb-2 flex flex-row flex-wrap group">
+                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm h-fit font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['csgo'];?></span>
+                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm h-fit font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['valorant'];?></span>
       </div>
     </div>
 <?php
