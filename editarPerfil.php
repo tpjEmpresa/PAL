@@ -1,5 +1,23 @@
 <?php
+ob_start();
+include_once 'php/conexao.php';
+include_once 'php/cod_editarPerfil.php';
 
+if(!isset($_SESSION['id_user'])){
+    $_SESSION = [];
+    $_SESSION['msg'] = '<script>alert("Erro: Necessário realizar o login para acessar a página!")</script>';
+    header("Location: index.php");
+    exit();
+}
+
+$query_usuario = "SELECT id_perfil, descricao FROM Perfil WHERE Id_user_fk = :id LIMIT 1";
+$result_usuario = $conn->prepare($query_usuario);
+$result_usuario->bindParam(':id', $_SESSION['id_user'], PDO::PARAM_STR);
+$result_usuario->execute();
+$row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
+$_SESSION['id_perfil'] = $row_usuario['id_perfil'];
+
+$query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_SESSION['id_perfil']." LIMIT 2";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +41,25 @@
     </style>
 </head>
 <body>
+
+<?php
+
+    $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    if (!empty($dados['EditPerfil'])) {
+        $_SESSION["dados"] = $dados;
+        header("Location: php/cod_editarPerfil.php");
+    }
+    if (!empty($dados['removejogo'])) {
+      $_SESSION["dados"] = $dados;
+      header("Location: php/cod_editarPerfil.php");
+  }
+?>
+<?php
+    if(isset($_SESSION["msg"])){
+        echo $_SESSION["msg"];
+        unset($_SESSION["msg"]);
+    }
+?>
 
 <header class="sticky top-0 z-10">
   <nav class="flex justify-between p-2 px-2 sm:px-6 bg-zinc-800">
@@ -94,8 +131,7 @@
   <div class="m-4 flex flex-1 rounded-md  p-4 flex-col gap-2">
     <form name="edit-usuario" method="POST" action="" class="mx-auto flex flex-col gap-2 sm:w-1/3 w-full">
       <label for="" class="text-md text-zinc-400">mude sobre você</label>
-      <textarea name="descricao" placeholder="descricao" maxlength="300" minlength="10" class="rounded-sm mb-3 p-1 px-2 text-lg resize-none h-36" required><?php if (isset($dados['descricao'])) {echo $dados['descricao'];} else{echo $dados['descricaoV'];}
-      ?></textarea>
+      <textarea name="descricao" placeholder="descricao" maxlength="300" minlength="10" class="rounded-sm mb-3 p-1 px-2 text-lg resize-none h-36" required><?php echo $row_usuario['descricao']; ?></textarea>
 
       <label class="text-md text-zinc-400">Adicione os jogos que voce joga</label>
       <label for=""class="text-sm text-zinc-400">jogo:</label>
@@ -105,7 +141,7 @@
             <option value="valorant">Valorant</option>
         </select>
         <label for=""class="text-sm text-zinc-400">rank:</label>
-        <select name="rankcs" class="rounded-sm p-1 px-2 text-lg" id="csgo">
+        <select name="rankcs" class="rounded-sm p-1 px-2 text-lg " id="csgo">
             <option value="nenhum"></option>
             <option value="nenhum">nenhum</option>
             <option value="prata">prata</option>
@@ -116,7 +152,7 @@
             <option value="supremo">supremo</option>
             <option value="global">global</option>
         </select>
-        <select name="rankval" class="rounded-sm p-1 px-2 text-lg" id="valorant">
+        <select name="rankval" class="rounded-sm p-1 px-2 text-lg " id="valorant">
             <option value="nenhum"></option>
             <option value="nenhum">nenhum</option>
             <option value="ferro">ferro</option>
@@ -154,24 +190,19 @@
       <div class="mx-auto flex flex-col gap-4  m-3">
 
       <label class="text-md text-zinc-400 text-center">remova os jogos </label>
-      <div class="flex gap-6 px-10 p-2 justify-between text-lg font-medium rounded-md border border-red-500  text-zinc-200" >
-          <div class="text-center w-full">
-            
-            <p><span class="text-sm text-zinc-400">jogo: </span>csgo</p>
-            <p><span class="text-sm text-zinc-400">rank: </span>prata</p>
-          </div>
-          <input type="submit" value="remover" name="removejogo" class="text-red-700  hover:text-red-500 hover:bg-zinc-950  px-2 rounded-md">
-        </div> 
 
       <?php
         foreach ($conn->query($query_jogo) as $row) {
       ?>
-        <div class="flex gap-6 px-10 p-2 justify-between text-lg font-medium rounded-md border border-red-500 bg-zinc-800 text-zinc-200" >
+        <div class="flex gap-6 px-10 p-2 justify-between text-lg font-medium rounded-md border border-red-500  text-zinc-200" >
           <div class="text-center w-full">
-            <p><?php print $row['jogo'];?></p>
-            <p class="text-zinc-400"><?php print $row['ranking'];?></p>
+            
+            <p><span class="text-sm text-zinc-400">jogo: </span><?php print $row['jogo'];?></p>
+            <p><span class="text-sm text-zinc-400">rank: </span><?php print $row['ranking'];?></p>
           </div>
-          <input type="submit" value="remover" name="removejogo" class="text-red-500 hover:bg-zinc-700 hover:text-red-400 px-2 rounded-md">
+          <?php
+          echo '<td><button type="submit" name="removejogo" value="'.$row['id_jogo'].'" class="text-red-700  hover:text-red-500 hover:bg-zinc-950  px-2 rounded-md">Delete</button></td>';
+          ?>
         </div> 
       <?php
         }
@@ -182,20 +213,5 @@
   </div>
 </main>
 
-
-<footer class="bg-zinc-900 px-6 font-medium text-zinc-400">
-  <div class="flex justify-between border-b border-zinc-200">
-    <div class="flex gap-4">
-      <a href="" class="hover:text-white">Saiba-mais</a>
-      <a href="" class="hover:text-white">Suporte</a>
-      <a href="" class="hover:text-white">Contato</a>
-    </div>
-    <p>:/</p>
-    <a href="" class="hover:text-white">Criar Conta / Entrar</a>
-  </div>
-</footer>
-<footer class="flex justify-center bg-zinc-900 text-sm text-white">
-  <p>&copy 2023 todos os direitos reservados. PAL inc.</p>
-</footer>
 </body>
 </html>

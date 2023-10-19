@@ -1,7 +1,6 @@
 <?php
-session_start();
 ob_start();
-include_once 'conexao.php';
+include_once 'php/cod_login.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,39 +24,20 @@ include_once 'conexao.php';
         }
     </style>
 <body>
-  <?php
+<?php
+
     $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
     if (!empty($dados['SendLogin'])) {
-        $query_usuario = 'SELECT id_user, nickName, email, senha FROM user WHERE email =:email LIMIT 1';
-        $result_usuario = $conn->prepare($query_usuario);
-        $result_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-        $result_usuario->execute();
-
-        if(($result_usuario) AND ($result_usuario->rowCount() != 0)){
-            $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
-            $dados['senha'] = md5($dados['senha']);
-            if($dados['senha'] == $row_usuario['senha']){
-                $_SESSION['id_user'] = $row_usuario['id_user'];
-                $_SESSION['nickName'] = $row_usuario['nickName'];
-                header("Location: perfil.php");
-            }else{
-              echo '<script>alert("Erro: Usuário ou senha inválida!")</script>';
-              //$_SESSION['msg'] = "<p style='color: #ff0000'>Erro: Usuário ou senha inválida!</p>";
-            }
-        }else{
-          echo '<script>alert("Erro: Usuário ou senha inválida!")</script>';
-          //$_SESSION['msg'] = "<p style='color: #ff0000'>Erro: Usuário ou senha inválida!</p>";
-        }
-
-        
+        $_SESSION["dados"] = $dados;
+        header("Location: php/cod_login.php");
     }
-
-    // if(isset($_SESSION['msg'])){
-    //     echo $_SESSION['msg'];
-    //     unset($_SESSION['msg']);
-    // }
-  ?>
+?>
+<?php
+    if(isset($_SESSION["msg"])){
+        echo $_SESSION["msg"];
+        unset($_SESSION["msg"]);
+    }
+?>
 
 <div class="flex h-screen bg-[url('pics/bg0.png')] m-auto bg-contain bg-repeat">
   <form name="login" method="POST" action="" class=" flex flex-col gap-4 bg-zinc-900 h-fit p-4 md:p-14 m-auto rounded-md md:w-1/3">
