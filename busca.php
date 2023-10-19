@@ -41,7 +41,7 @@ if(!isset($_SESSION['id_user'])){
   <nav class="flex justify-between p-2 px-2 sm:px-6 bg-zinc-800">
     <a href="index.php"><!--LINK PRA LOGO, N SEI PRA ONDE MANDA CPA A LADNING PAGE SL-->
         <div>
-        <img src="/pics/pal.png" alt="logo" class="" width="120"> 
+        <img src="pics/pal.png" alt="logo" class="" width="120"> 
         </div>
     </a>
 
@@ -254,8 +254,8 @@ $query_usuario = "SELECT id_user, nickName, id_perfil, MAX(CASE WHEN jogo = 'cs:
       <img src="pics/pfp.jpg" alt="" height="50" width="50" class="mx-3 my-1 "/>
       <p class="text-sm text-zinc-500 px-3 ">tags:</p>
       <div class="px-6 pt-4 pb-2 flex flex-row flex-wrap group">
-                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm h-fit font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['csgo'];?></span>
-                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm h-fit font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php print $row['valorant'];?></span>
+                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm h-fit font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php if(!empty($row['csgo'])){print $row['csgo'];}?></span>
+                <span class=" bg-zinc-200 rounded-full px-3 py-1 text-sm h-fit font-semibold text-zinc-700 mr-2 mb-2 hover:text-zinc-600 hover:bg-zinc-300 transition-colors"><?php if(!empty($row['valorant'])){print $row['valorant'];}?></span>
       </div>
     </div>
 <?php

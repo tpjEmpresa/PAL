@@ -13,9 +13,9 @@ if (isset($dados['removejogo'])){
 	$edit_jogo = $conn->prepare($query_del_jogo);
 	$edit_jogo->bindParam(':id', $dados['removejogo'], PDO::PARAM_INT);
 	$edit_jogo->execute();
-	header("Location: http://localhost:3000/editarPerfil.php");
+	header("Location: ../editarPerfil.php");
 }
- 
+
 if (!empty($dados['EditPerfil'])) {
     $empty_input = false;
     $dados = array_map('trim', $dados);
@@ -23,7 +23,7 @@ if (!empty($dados['EditPerfil'])) {
     if (in_array("", $dados)) {
         $empty_input = true;
         $_SESSION['msg'] = '<script>alert("Erro: Necessário preencher todos campos")</script>';
-        header("Location: http://localhost:3000/editarPerfil.php");
+        header("Location: ../editarPerfil.php");
     }
 
     if (!$empty_input) {
@@ -45,14 +45,14 @@ if (!empty($dados['EditPerfil'])) {
                 if ($dados['jogo'] == "cs:go"){
 					if($row_jogo['jogo'] == "cs:go"){
 						$_SESSION['msg'] = '<script>alert("Erro: Jogo já cadastrado")</script>';
-        				header("Location: http://localhost:3000/editarPerfil.php");
+        				header("Location: ../editarPerfil.php");
 					}else{
 						$rank = $dados['rankcs'];
 					}
                 }else if ($dados['jogo'] == "valorant"){
 					if($row_jogo['jogo'] == "valorant"){
 						$_SESSION['msg'] = '<script>alert("Erro: Jogo já cadastrado")</script>';
-        				header("Location: http://localhost:3000/editarPerfil.php");
+        				header("Location: ../editarPerfil.php");
 					}else{
                     $rank = $dados['rankval'];
 					}
@@ -72,14 +72,14 @@ if (!empty($dados['EditPerfil'])) {
                         unset($_SESSION['id_perfil']);
                     }else {
                     	$_SESSION['msg'] = '<script>alert("Erro: Usuário não cadastrado")</script>';
-                        header("Location: http://localhost:3000/login.php");
+                        header("Location: ../login.php");
                     }
                 }
             }
-        header("Location: http://localhost:3000/Perfil.php");
+        header("Location: ../Perfil.php");
         }else{
             $_SESSION['msg'] = '<script>alert("Perfil não editado!")</script>';
-            header("Location: http://localhost:3000/editarPerfil.php");
+            header("Location: ../editarPerfil.php");
         }
     }
 }

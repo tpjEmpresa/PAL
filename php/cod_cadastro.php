@@ -43,27 +43,27 @@ if (!empty($dados['CadUsuario'])) {
     if (in_array("", $dados)) {
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Necessário preencher todos campos")</script>';
-        header("Location: cadastro.php");
+        header("Location: http://localhost/PIT/Sprint3/PAL/cadastro.php");
     }elseif(strlen($dados['nickName'])<3){
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Nome de usuario curto")</script>';
-        header("Location:cadastro.php");
+        header("Location: http://localhost/PIT/Sprint3/PAL/cadastro.php");
     }elseif (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)) {
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Necessário preencher com e-mail válido")</script>';
-        header("Location: cadastro.php");
+        header("Location: http://localhost/PIT/Sprint3/PAL/cadastro.php");
     }elseif($idade < 14){
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Nescessário ter mais de 14 anos")</script>';
-        header("Location: hcadastro.php");
+        header("Location: http://localhost/PIT/Sprint3/PAL/cadastro.php");
     }elseif(!isset($dados['termoServico'])){
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Necessário concordar com os termos de serviço")</script>';
-        header("Location: cadastro.php");
+        header("Location: http://localhost/PIT/Sprint3/PAL/cadastro.php");
     }elseif($email == 1){
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Email já cadastrado")</script>';
-        header("Location: cadastro.php");
+        header("Location: http://localhost/PIT/Sprint3/PAL/cadastro.php");
     }
 
     if (!$empty_input) {
@@ -95,9 +95,10 @@ if (!empty($dados['CadUsuario'])) {
                 if ($cad_usuario->rowCount()) {
                     unset($dados);
                     unset($_SESSION['id_user']);
-                    header("Location: login.php");
+                    header("Location: http://localhost/PIT/Sprint3/PAL/login.php");
                 }else {
-                    echo '<script>alert("Erro: Usuário não cadastrado")</script>';
+                    $_SESSION["msg"] = '<script>alert("Erro: Usuário não cadastrado")</script>';
+                    header("Location: http://localhost/PIT/Sprint3/PAL/cadastro.php");
                 }
             }
         }

@@ -81,27 +81,19 @@ $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_
 
         <!-- MENU DROP DOWN-->
         <div class="dropdown my-auto">
-          <button class="font-mono hover:bg-zinc-700 p-1">
-            <?php echo $_SESSION['nickName']; ?><i>▼</i></button><!--NOME USER-->
+          <button class="font-mono hover:bg-zinc-700 p-1">UserName<i>▼</i></button><!--NOME USER-->
 
           <div class="absolute bg-zinc-800  rounded-md border dropdown-menu opacity-0 invisible right-10 ">
             <ul class="text-sm font-medium">
-
-              <a href="editarPerfil.php">
-                <li class="hover:bg-zinc-100 hover:text-black p-2 transition-colors">
-                Editar Perfil<!--LINK editar perfil-->
-                </li>
-              </a>
-              <a href="configSite.php">
-                <li class="hover:bg-zinc-100 hover:text-black p-2  transition-colors">
-                  Configuracão do site<!--LINK config site-->
-                </li>
-              </a>
-              <a href="php/logout.php">
-                <li  class="hover:bg-zinc-100 hover:text-black p-2 text-sm  transition-colors">
-                Sair<!--LINK-->
-                </li>
-              </a>
+              <li class="hover:bg-zinc-100 hover:text-black p-2 transition-colors">
+                <a href="editarPerfil.php">Editar Perfil</a><!--LINK editar perfil-->
+              </li>
+              <li class="hover:bg-zinc-100 hover:text-black p-2  transition-colors">
+                <a href="configSite.php">Configuracão do site</a><!--LINK-->
+              </li>
+              <li  class="hover:bg-zinc-100 hover:text-black p-2 text-sm  transition-colors">
+                <a href="">Sair</a><!--LINK-->
+              </li>
             </ul>
           </div>
           <style>
@@ -117,7 +109,7 @@ $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_
       </div>
 
     <!-- MANDA PRO PERFIL DA PESSOA LOGADA-->
-      <a href="perfil.php" class="m-auto">
+      <a href="" class="m-auto">
         <div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('pics/pfp.jpg')] bg-cover bg-center ">
             <!--FOTO USER-->
         </div>
@@ -149,7 +141,7 @@ $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_
             <option value="valorant">Valorant</option>
         </select>
         <label for=""class="text-sm text-zinc-400">rank:</label>
-        <select name="rankcs" class="rounded-sm p-1 px-2 text-lg" id="csgo">
+        <select name="rankcs" class="rounded-sm p-1 px-2 text-lg " id="csgo">
             <option value="nenhum"></option>
             <option value="nenhum">nenhum</option>
             <option value="prata">prata</option>
@@ -160,7 +152,7 @@ $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_
             <option value="supremo">supremo</option>
             <option value="global">global</option>
         </select>
-        <select name="rankval" class="rounded-sm hidden p-1 px-2 text-lg" id="valorant">
+        <select name="rankval" class="rounded-sm p-1 px-2 text-lg " id="valorant">
             <option value="nenhum"></option>
             <option value="nenhum">nenhum</option>
             <option value="ferro">ferro</option>
@@ -220,21 +212,6 @@ $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_
 
   </div>
 </main>
-
-<footer class="m-3 flex h-20 gap-10 border-t border-zinc-400 p-3 sm:mx-16">
-    <div class="flex gap-2 w-1/3">
-      <a href="" class="my-auto text-sm text-zinc-400">
-        <span> ©2023 TPJ, Inc.</span>
-      </a>
-    </div>
-    <div class="my-auto w-full ">
-      <ul class="flex  text-zinc-400 justify-evenly text-sm">
-        <li class="underline hover:text-white"><a href="suporte.php">SUPORTE</a></li>
-        <li class="underline hover:text-white"><a href="saibaMais.php">SAIBA MAIS</a></li>
-        <li class="underline hover:text-white"><a href="contato.php">CONTATO</a></li>
-      </ul>
-    </div>
-</footer>
 
 </body>
 </html>
