@@ -3,6 +3,20 @@ session_start();
 ob_start();
 include_once 'php/conexao.php';
 
+if(!isset($_SESSION['id_user'])){
+    $_SESSION = [];
+    $_SESSION['msg'] = '<script>alert("Erro: Necessário realizar o login para acessar a página!")</script>';
+    header("Location: index.php");
+    exit();
+}elseif($_SESSION['id_user'] == $_SESSION['reportid']){
+  header("Location: busca.php");
+}
+
+$query_usuario = "SELECT id_user,nickname FROM user WHERE id_user = :id LIMIT 1";
+$result_usuario = $conn->prepare($query_usuario);
+$result_usuario->bindParam(':id', $_SESSION['reportid'], PDO::PARAM_STR);
+$result_usuario->execute();
+$row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +41,55 @@ include_once 'php/conexao.php';
     </style>
 </head>
 <body>
+<?php 
+  if (!empty($_POST['btnreport'])) {
+    if (!empty($_POST['radio'])){
+      $vlr = 0;
 
+      $query_perfil = "SELECT reputacao FROM Perfil WHERE Id_user_fk = :id LIMIT 1";
+      $result_perfil = $conn->prepare($query_perfil);
+      $result_perfil->bindParam(':id', $row_usuario['id_user'], PDO::PARAM_STR);
+      $result_perfil->execute();
+      $row_perfil = $result_perfil->fetch(PDO::FETCH_ASSOC);
+
+      switch ($_POST["radio"]) {
+      case 1:
+        $vlr = 10;
+        //echo '<script>alert("1")</script>';
+        break;
+      case 2:
+        $vlr = 20;
+        //echo '<script>alert("2")</script>';
+        break;
+      case 3:
+        $vlr = 30;
+        //echo '<script>alert("3")</script>';
+        break;
+      case 4:
+        $vlr = 40;
+        //echo '<script>alert("4")</script>';
+        break;
+      case 5:
+        $vlr = 50;
+        //echo '<script>alert("5")</script>';
+        break;
+      default:
+        $vlr = 0;
+        //echo '<script>alert("6")</script>';
+      }
+
+      $row_perfil["reputacao"] = $row_perfil["reputacao"] - $vlr;
+
+      $query_up_usuario = "UPDATE perfil SET reputacao = :reputacao WHERE Id_user_fk = :id";
+      $edit_usuario = $conn->prepare($query_up_usuario);
+      $edit_usuario->bindParam(':reputacao', $row_perfil["reputacao"], PDO::PARAM_STR);
+      $edit_usuario->bindParam(':id', $row_usuario['id_user'], PDO::PARAM_INT);
+      $edit_usuario->execute();
+      echo '<script>alert("Reportado")</script>';
+      header("Location: busca.php");
+    }
+  }
+?>
 <header class="sticky top-0 z-10">
   <nav class="flex justify-between p-2 px-2 sm:px-6 bg-zinc-800">
     <a href="index.php"><!--LINK PRA LOGO, N SEI PRA ONDE MANDA CPA A LADNING PAGE SL-->
@@ -101,40 +163,40 @@ include_once 'php/conexao.php';
 
 <section class="bg-white dark:bg-zinc-900">
   <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-zinc-900 dark:text-white">Reporte usuario</h2>
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-zinc-900 dark:text-white">Reportar <?php echo $row_usuario['nickname'];?></h2>
       <p class="mb-8 font-light text-center text-zinc-500 dark:text-zinc-400 text-lg">
         Motivo da sua denuncia:</p>  
       <div class="flex justify-center">  
-        <form action="" class="space-y-8 text-center p-6 w-1/2 mx-center bg-zinc-800 rounded-md ">
+        <form action="" method="POST" class="space-y-8 text-center p-6 w-1/2 mx-center bg-zinc-800 rounded-md ">
 
             <div class="flex items-center mb-4 text-center mx-auto">
-                <input type="radio" value="" name="default-radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
+                <input type="radio" value="1" name="radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
                 <label
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Assédio ou bullying</label>
             </div>
             <div class="flex items-center mb-4 text-center mx-auto">
-                <input type="radio" value="" name="default-radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
+                <input type="radio" value="2" name="radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
                 <label
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Racismo</label>
             </div>
             <div class="flex items-center mb-4  mx-auto">
-                <input type="radio" value="" name="default-radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
+                <input type="radio" value="3" name="radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
                 <label
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Promove terrorismo</label>
             </div>
             <div class="flex items-center mb-4 text-center mx-auto">
-                <input type="radio" value="" name="default-radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
+                <input type="radio" value="4" name="radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
                 <label
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Spam ou enganoso</label>
             </div>
 
             <div class="flex items-center mb-4 text-center mx-auto">
-                <input type="radio" value="" name="default-radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
+                <input type="radio" value="5" name="radio" class="w-4 h-4 text-red-600 bg-gray-100 accent-red-500">
                 <label
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">O problema não está entre os listados acima</label>
             </div>
 
-            <button type="submit" class="mt-3 rounded-sm px-5 py-2 bg-red-600 text-white duration-300 hover:bg-red-700">Enviar</button>
+            <button type="submit" name="btnreport" value="1" class="mt-3 rounded-sm px-5 py-2 bg-red-600 text-white duration-300 hover:bg-red-700">Enviar</button>
         </form>
       </div>  
   </div>

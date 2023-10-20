@@ -37,6 +37,25 @@ if(!isset($_SESSION['id_user'])){
 </head>
 <body>
 
+<?php
+
+    //$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    if (!empty($_POST['visita'])) {
+      $_SESSION["visita"] = $_POST['visita'];
+      header("Location: visitaperfil.php");
+    }
+    if (!empty($_POST['report'])) {
+      $_SESSION["reportid"] = $_POST['report'];
+      header("Location: report.php");
+    }
+?>
+<?php
+    if(isset($_SESSION["msg"])){
+        echo $_SESSION["msg"];
+        unset($_SESSION["msg"]);
+    }
+?>
+
 <header class="sticky top-0 z-10">
   <nav class="flex justify-between p-2 px-2 sm:px-6 bg-zinc-800">
     <a href="index.php"><!--LINK PRA LOGO, N SEI PRA ONDE MANDA CPA A LADNING PAGE SL-->
@@ -248,8 +267,16 @@ $query_usuario = "SELECT id_user, nickName, id_perfil, MAX(CASE WHEN jogo = 'cs:
 ?>
     <div id="hid" class="container border w-full flex flex-col p-2 rounded-sm ">
       <div class="flex justify-between">
-        <a href="#"><h1 class="text-xl font-medium px-3 py-1 hover:text-white transition-colors"><?php print $row['nickName'];?></h1></a>
-        <a class="text-sm text-red-800 hover:text-red-600 transition-colors" href="report.php">report</a>
+      <form name="" method="POST" action="">
+        <?php
+          echo '<td><button type="submit" name="visita" value="'.$row['id_user'].'" class=""><h1 class="text-xl font-medium px-3 py-1 hover:text-white transition-colors">'. $row['nickName'].'</h1></button></td>';
+        ?>
+        <!-- <h1 class="text-xl font-medium px-3 py-1 hover:text-white transition-colors"><php print $row['nickName'];?></h1> -->
+        <?php
+          echo '<td><button type="submit" name="report" value="'.$row['id_user'].'" class=""><p class="text-sm text-red-800 hover:text-red-600 transition-colors">report</p></button></td>';
+        ?>
+        <!-- <a class="text-sm text-red-800 hover:text-red-600 transition-colors" href="report.php">report</a> -->
+      </form>
       </div>
       <img src="pics/pfp.jpg" alt="" height="50" width="50" class="mx-3 my-1 "/>
       <p class="text-sm text-zinc-500 px-3 ">tags:</p>
