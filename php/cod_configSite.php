@@ -49,23 +49,23 @@ if (!empty($dados['EditUser'])) {
     if (in_array("", $dados)) {
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Necessário preencher todos campos")</script>';
-        header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+        header("Location: ../configSite.php");
     }elseif(strlen($dados['nickName'])<3){
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Nome de usuario curto")</script>';
-        header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+        header("Location: ../configSite.php");
     }elseif (!filter_var($dados['email'], FILTER_VALIDATE_EMAIL)) {
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Necessário preencher com e-mail válido")</script>';
-        header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+        header("Location: ../configSite.php");
     }elseif($idade < 14){
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Nescessário ter mais de 14 anos")</script>';
-        header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+        header("Location: ../configSite.php");
     }elseif($email == 1){
         $empty_input = true;
         $_SESSION["msg"] = '<script>alert("Erro: Email já cadastrado")</script>';
-        header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+        header("Location: ../configSite.php");
     }
 
     if (!$empty_input) {
@@ -77,10 +77,10 @@ if (!empty($dados['EditUser'])) {
         $edit_usuario->bindParam(':id', $_SESSION['id_user'], PDO::PARAM_INT);
         if($edit_usuario->execute()){
             $_SESSION['nickName'] = $dados['nickName'];
-            header("Location: http://localhost/PIT/Sprint3/PAL/perfil.php");
+            header("Location: ../perfil.php");
         }else{
             $_SESSION["msg"] = '<script>alert("Erro: Informações não alteradas")</script>';
-            header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+            header("Location: ../configSite.php");
         }
     }
 }
@@ -93,7 +93,7 @@ if (!empty($dados['EditSenha'])) {
     if (in_array("", $dados)) {
         $empty_inputS = true;
         $_SESSION["msg"] = '<script>alert("Erro: Necessário preencher todos campos")</script>';
-        header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+        header("Location: ../configSite.php");
     }
 
     if (!$empty_inputS) {
@@ -104,14 +104,14 @@ if (!empty($dados['EditSenha'])) {
             $edit_usuario->bindParam(':senha', $senhasub, PDO::PARAM_STR);
             $edit_usuario->bindParam(':id', $_SESSION['id_user'], PDO::PARAM_INT);
             if($edit_usuario->execute()){
-                header("Location: http://localhost/PIT/Sprint3/PAL/perfil.php");
+                header("Location: ../perfil.php");
             }else{
                 $_SESSION["msg"] = '<script>alert("Erro: Senha não alterada")</script>';
-                header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+                header("Location: ../configSite.php");
             }
         }else{
             $_SESSION["msg"] = '<script>alert("Erro: As senhas não são iguais")</script>';
-            header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+            header("Location: ../configSite.php");
         }
     }
 }
@@ -151,6 +151,6 @@ if (isset($dados["ApagarConta"])){
 
     }else{
         $_SESSION["msg"] = '<script>alert("Erro: Senha inválida!")</script>';
-        header("Location: http://localhost/PIT/Sprint3/PAL/configSite.php");
+        header("Location: ../configSite.php");
     }
 }
