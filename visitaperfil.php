@@ -218,7 +218,7 @@ $query_jogo = "SELECT jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$row_perfil
   <div class="flex flex-1 flex-col justify-between bg-zinc-900 p-4 text-zinc-200 sm:flex-row h-16">
   <form name="" method="POST" action="">
   <?php
-          echo '<td><button type="submit" name="report" value="'.$row_usuario['id_user'].'" class=""><p class="text-sm text-red-800 hover:text-red-600 transition-colors">report</p></button></td>';
+          echo '<td><button type="submit" name="report" value="'.$row_usuario['id_user'].'" class=""><p class="text-sm text-red-800 hover:text-red-600 transition-colors pr-4">report</p></button></td>';
   ?>
   <!-- <a href="editarPerfil.php" class="hover:text-white text-zinc-400 w-fit h-fit font-mono">Editar perfil</a> -->
   </form>
