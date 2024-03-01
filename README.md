@@ -15,10 +15,10 @@ Nossa solução é uma plataforma web que visa conectar jogadores para formar eq
 - **Banco de Dados:** MySQL
 
 ## Instalação
-1. Clone este repositório: `git clone https://github.com/seu-usuario/nome-do-repositorio.git`
+1. Clone este repositório: `git clone https://github.com/tpjEmpresa/PAL.git`
 2. Configure o ambiente de servidor web (por exemplo, Apache ou Nginx) para servir os arquivos PHP.
-3. Importe o banco de dados fornecido (`banco_de_dados.sql`) para o seu servidor MySQL.
-4. Configure as credenciais do banco de dados no arquivo `config.php`.
+3. Importe o banco de dados fornecido (`tpj.sql`) para o seu servidor MySQL.
+4. Configure as credenciais do banco de dados no arquivo `/php/conexao.php`.
 5. Abra o navegador e acesse a URL da sua plataforma.
 
 ## Contribuição
