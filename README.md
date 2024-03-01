@@ -1,4 +1,4 @@
-# Plataforma de Conexão para Jogadores
+# Documentação do Player's and Allies Locator
 
 ## Descrição
 Nossa solução é uma plataforma web que visa conectar jogadores para formar equipes com base em interesses e habilidades semelhantes. Inspirado no Tinder, nosso sistema utiliza um algoritmo de matchmaking para recomendar jogadores compatíveis, facilitando a formação de equipes para jogar juntos.
