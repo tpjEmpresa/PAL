@@ -66,7 +66,7 @@
 
     <a class=" border text-white px-4 p-2 rounded-md cursor-pointer hover:border hover:border-red-600 
     hover:bg-red-600 font-semibold flex transition-all"
-    href="login.php"><!-- LINK login -->
+    href="login.php"><!--  LINK login -->
       <p class="m-auto">ENTRAR</p>
     </a>
   </nav>

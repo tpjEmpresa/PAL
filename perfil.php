@@ -55,7 +55,7 @@ $query_jogo = "SELECT jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$row_usuari
 ?>
 <header class="sticky top-0 z-10">
   <nav class="flex justify-between p-2 px-2 sm:px-6 bg-zinc-800">
-    <a href="index.php"><!-- LINK PRA LOGO, N SEI PRA ONDE MANDA CPA A LADNING PAGE SL -->
+    <a href="index.php"><!-- LINK PRA LOGO, N SEI PRA ONDE MANDA CPA A LADNING PAGE SL  -->
         <div>
         <img src="pics/pal.png" alt="logo" class="" width="120"> 
         </div>
