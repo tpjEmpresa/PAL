@@ -76,7 +76,7 @@ $query_jogo = "SELECT id_jogo, jogo, ranking FROM Jogo WHERE Id_perfil_fk = ".$_
 
       
         <a href="notificacao.php"><div class="h-8 w-8 shrink-0 overflow-hidden bg-[url('pics/bell.png')] bg-cover bg-center invert hover:opacity-75 ">
-        <!--FOTO NOTIFICACAO-->
+        <!-- FOTO NOTIFICACAO -->
         </div></a>
 
         <!-- MENU DROP DOWN-->
